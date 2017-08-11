@@ -52,7 +52,7 @@ define([
 
         update: function (obj, callback) {
             if (this._contextObj !== obj){
-                console.log(this.id + ".update on new object");
+                logger.debug(this.id + ".update on new object");
                 this._loadingStarted = false;
 
                 this._contextObj = obj;
@@ -65,13 +65,12 @@ define([
 
         resize: function (box) {
             if (!this._renderedForm) {
-                console.log(this.id, this);
                 if (this._debounce) {
                     clearTimeout(this._debounce);
                 }
                 setTimeout(dojoLang.hitch(this, function () {
                     if (this.domNode.offsetParent !== null) {
-                        console.log(this.id, this.domNode.offsetParent);
+                        logger.debug(this.id, this.domNode.offsetParent);
                         this._renderedForm = true;
                         this._loadAndShowcontent();
                     }
@@ -137,7 +136,7 @@ define([
                 if (this._loadingStarted) {
                     this._showPage();
                 } else {
-                    console.log(this.id + "_setPage skip because already set.");
+                    logger.debug(this.id + "_setPage skip because already set.");
                 }
             } else {
                 this._pageInitiated = true;
@@ -148,7 +147,7 @@ define([
                     domNode: this.divContent,
                     callback: dojoLang.hitch(this, this._showPage),
                     error: function (error) {
-                        console.log(error.description);
+                        logger.debug(error.description);
                     }
                 };
 
@@ -163,7 +162,7 @@ define([
         },
 
         _showPage: function () {
-            console.log(this.id + "._showPage on form");
+            logger.debug(this.id + "._showPage on form");
 
             dojoStyle.set(this.divContent, "display", "block");
             dojoStyle.set(this.divLoader, "display", "none");
@@ -181,10 +180,10 @@ define([
                     guid: this._contextObj.getGuid(),
                     callback: dojoLang.hitch(this, function (guid) {
                         if (this._loadingStarted === false){
-                            console.log(this.id + ".Refresh triggered.");
+                            logger.debug(this.id + ".Refresh triggered.");
                             this._updateRendering();
                         } else {
-                            console.log(this.id + ".Refresh skip because of loading started.");
+                            logger.debug(this.id + ".Refresh skip because of loading started.");
                         }
                     })
                 });
