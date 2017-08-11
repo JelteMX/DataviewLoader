@@ -70,7 +70,6 @@ define([
                 }
                 setTimeout(dojoLang.hitch(this, function () {
                     if (this.domNode.offsetParent !== null) {
-                        logger.debug(this.id, this.domNode.offsetParent);
                         this._renderedForm = true;
                         this._loadAndShowcontent();
                     }
